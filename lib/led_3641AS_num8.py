@@ -75,7 +75,7 @@ def init_max7219():
     send_data(REG_SHUTDOWN, 0x01)    # 退出省电模式（0x00=关机，0x01=开机）
     send_data(REG_DECODE, 0x00)      # 关闭所有解码模式（允许自定义段码）
     send_data(REG_SCANLIMIT, 0x07)   # 扫描全部 8 位数码管
-    send_data(REG_INTENSITY, 0x08)   # 亮度设置（0x00~0x0F）
+    send_data(REG_INTENSITY, 0x04)   # 亮度设置（0x00~0x0F）
     send_data(REG_DISPTEST, 0x01)    # 显示测试
     time.sleep(0.5)
     send_data(REG_DISPTEST, 0x00)    # 关闭显示测试

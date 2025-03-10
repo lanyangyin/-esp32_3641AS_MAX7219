@@ -1,12 +1,15 @@
 import network
 import time
-from led_3641AS_num8 import display_char,  display_line  # 3641AS的LED数码管，用了MAX7219 寄存器
+from lib.led_3641AS_num8 import display_char,  display_line  # 3641AS的LED数码管，用了MAX7219 寄存器
 import ntptime
+import _thread
 TIMEZONE_OFFSET = 8  # 东八区
 
 
 def sync_ntp_time(retries=30):
-    """同步 NTP 时间"""
+    """
+    同步 NTP 时间
+    """
     for _ in range(retries):
         try:
             ntptime.settime()  # 默认使用 pool.ntp.org
@@ -18,7 +21,9 @@ def sync_ntp_time(retries=30):
     return False
 
 def get_local_time():
-    """获取本地时间（带时区调整）"""
+    """
+    获取本地时间（带时区调整）
+    """
     # 计算时区偏移（秒）
     utc_offset = TIMEZONE_OFFSET * 3600
     # 获取当前时间戳并调整时区
