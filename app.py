@@ -12,8 +12,10 @@ def led_control(state, brightness):
     print(f"Setting LED: {state} at {brightness}%")
     # 实际硬件控制代码
 
+
 def get_temperature():
     return f"{random.uniform(20, 30):.1f}°C"  # 示例温度值
+
 
 # 加载配置文件
 with open('config.json') as f:
@@ -22,7 +24,9 @@ with open('config.json') as f:
 
 # 网页生成函数
 def generate_html():
-    html = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1">
+    html = """<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { 
@@ -129,11 +133,10 @@ def start_webserver():
                 group_id = request.split('/show/')[1].split()[0]
                 func = globals()[config[group_id]['name']]
                 result = str(func())
-                conn.send('HTTP/1.1 200 OK\nContent-Type: text/plain\n\n' + result)
+                conn.send('HTTP/1.1 200 OK\nContent-Type: text/plain; charset=utf-8\n\n' + result)
             else:
-                conn.send('HTTP/1.1 200 OK\nContent-Type: text/html\n\n' + generate_html())
+                conn.send('HTTP/1.1 200 OK\nContent-Type: text/html; charset=utf-8\n\n' + generate_html())
         
-
         # 修改后的POST处理部分
         elif request.startswith('POST /'):
             group_id = request.split()[1].split('/')[1]
